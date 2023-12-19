@@ -69,6 +69,8 @@ class FileStorage:
         """call reload() method for deserializing the JSON file to objects"""
         self.reload()
 
+# These two functions are the new methods added into DBStorage class
+# & FileStorage class
     def get(self, cls, id):
         """A method to retrieve one object"""
         if cls is None or id is None:

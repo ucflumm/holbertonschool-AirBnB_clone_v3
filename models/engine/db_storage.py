@@ -77,6 +77,8 @@ class DBStorage:
         """call remove() method on the private session attribute"""
         self.__session.remove()
 
+# These two functions are the new methods added into DBStorage class
+# & FileStorage class
     def get(self, cls, id):
         """retrieve one object"""
         if cls is None or id is None:
