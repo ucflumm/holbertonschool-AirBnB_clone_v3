@@ -16,8 +16,9 @@ from models.state import State
 from models.user import User
 import json
 import os
-import pep8
+import pycodestyle as pep8
 import unittest
+import models.engine
 FileStorage = file_storage.FileStorage
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -113,3 +114,28 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_get(self):
+        """Test get method"""
+        new_state = State(name="California")
+        new_state.save()
+        state_id = new_state.id
+        state = models.storage.get(State, state_id)
+        self.assertEqual(state, new_state)
+
+    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    def test_count(self):
+        """Test count method"""
+        # This doesn't remove the JSON from the previous test
+        file_path = "file.json"
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        storage = FileStorage()
+        storage.reload()
+        new_state = State(name="California")
+        new_state.save()
+        state_id = new_state.id
+        state = models.storage.count(State)
+        self.assertEqual(state, 1)
+        os.remove(file_path)
