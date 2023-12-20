@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""
+Runs the index.py file
+"""
+
 from flask import jsonify
 from api.v1.views import app_views
 from models import storage
