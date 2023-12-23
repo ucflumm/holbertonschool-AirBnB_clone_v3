@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-from flask import Flask, jsonify, abort, request
-from models import storage, Amenity
 """
 Creates a view for Amenities objects that handles all default RESTFul API actions
 """
+
+from flask import Flask, jsonify, abort, request
+from models import storage, Amenity
 app = Flask(__name__)
 
 
