@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Creates a view for Amenities objects that handles all default RESTFul API actions
+Runs the amenities.py file
 """
 
 from flask import Flask, jsonify, abort, request
