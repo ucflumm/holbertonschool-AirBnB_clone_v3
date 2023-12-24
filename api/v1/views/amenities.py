@@ -4,7 +4,9 @@ Runs the amenities.py file
 """
 
 from flask import Flask, jsonify, abort, request
-from models import storage, Amenity
+from models import storage
+from models.amenity import Amenity
+
 app = Flask(__name__)
 
 
