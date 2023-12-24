@@ -9,11 +9,15 @@ from models.amenity import Amenity
 
 app = Flask(__name__)
 
-
 @app.route('/api/v1/amenities', methods=['GET'])
 def get_amenities():
     amenities = storage.all(Amenity).values()
-    return jsonify([amenity.to_dict() for amenity in amenities])
+    return jsonify([amenity.to_dict() for amenity in amenities]), 200
+
+# @app.route('/api/v1/amenities', methods=['GET'])
+# def get_amenities():
+#     amenities = storage.all(Amenity).values()
+#     return jsonify([amenity.to_dict() for amenity in amenities])
 
 
 @app.route('/api/v1/amenities/<amenity_id>', methods=['GET'])
