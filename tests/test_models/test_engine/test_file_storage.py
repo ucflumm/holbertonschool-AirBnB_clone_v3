@@ -124,18 +124,15 @@ class TestFileStorage(unittest.TestCase):
         state = models.storage.get(State, state_id)
         self.assertEqual(state, new_state)
 
-    @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+    @unittest.skipIf(models.storage_t == 'db', "not testing db storage")
     def test_count(self):
-        """Test count method"""
-        # This doesn't remove the JSON from the previous test
-        file_path = "file.json"
-        if os.path.exists(file_path):
-            os.remove(file_path)
+        """tests that adds new objects to database"""
         storage = FileStorage()
-        storage.reload()
-        new_state = State(name="California")
+        current_count = len(storage.all())
+        self.assertEqual(storage.count(), current_count)
+        state_len = len(storage.all("State"))
+        self.assertEqual(storage.count("State"), state_len)
+        new_state = State()
         new_state.save()
-        state_id = new_state.id
-        state = models.storage.count(State)
-        self.assertEqual(state, 1)
-        os.remove(file_path)
+        self.assertEqual(storage.count(), current_count + 1)
+        self.assertEqual(storage.count("State"), state_len + 1)
