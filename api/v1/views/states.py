@@ -36,6 +36,9 @@ def delete_state_by_id(state_id):
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     json_dict = request.get_json()
     not_json_format(json_dict)
 
