@@ -44,6 +44,9 @@ def delete_place(place_id):
                  strict_slashes=False)
 def create_place(city_id):
     """ Creates a Place """
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
@@ -65,6 +68,9 @@ def create_place(city_id):
 @app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
 def update_place(place_id):
     """ Updates a Place object """
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     place = storage.get("Place", place_id)
     if place is None:
         abort(404)
