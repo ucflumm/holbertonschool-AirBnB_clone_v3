@@ -51,6 +51,9 @@ def create_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     state = storage.get(State, state_id)
     not_found_error(state)
     json_dict = request.get_json()
