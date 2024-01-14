@@ -43,6 +43,9 @@ def delete_review(review_id):
                  strict_slashes=False)
 def create_review(place_id):
     """ Creates a Review """
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
@@ -66,6 +69,9 @@ def create_review(place_id):
                  strict_slashes=False)
 def update_review(review_id):
     """ Updates a Review object """
+    if request.headers.get('Content-Type') != 'application/json':
+        abort(400)
+
     review = storage.get('Review', review_id)
     if review is None:
         abort(404)
